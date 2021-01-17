@@ -1,8 +1,11 @@
 <?php
-$conn = mysqli_init();
-mysqli_ssl_set($conn,NULL,NULL, "/var/www/html/DigiCertGlobalRootCA.crt.pem", NULL, NULL);
-mysqli_real_connect($conn, '117380531fyp.database.windows.net', 'fyp117380531', 'FYP2021!', 'quickstartdb', 3306, MYSQLI_CLIENT_SSL);
-if (mysqli_connect_errno($conn)) {
-die('Failed to connect to MySQL: '.mysqli_connect_error());
+// PHP Data Objects(PDO) Sample Code:
+try {
+    $conn = new PDO("sqlsrv:server = tcp:117380531fyp.database.windows.net,1433; Database = FYP117380531", "fyp117380531", "FYP2021!");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    print("You have Bear First?");
 }
-?>
+catch (PDOException $e) {
+    print("Error connecting to SQL Server.");
+    die(print_r($e));
+}
